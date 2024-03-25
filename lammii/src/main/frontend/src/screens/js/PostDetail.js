@@ -1,6 +1,20 @@
 import '../css/PostDetail.css';
+import {useEffect, useState} from 'react';
+import axios from 'axios';
 
 function PostDetail() {
+	
+	const [testList, setTestList] = useState();
+	
+	useEffect(()=>{
+		const getTest = async () => {
+			const resp = await axios.get(process.env.REACT_APP_DB_HOST + "/test/1");
+			setTestList(resp.data);
+			console.log(resp.data);
+		}
+		getTest();
+		
+	}, [])
 	
 	return (
 		<div>
@@ -12,7 +26,7 @@ function PostDetail() {
 					</div>
 					<div class="board_text">
 						<div class="title">
-							<h3>글 제목입니다.</h3>
+							<h3>id 번호입니다. : {testList.testId}</h3>
 						</div>
 						<div class="board_info">
 							<ul>
@@ -22,7 +36,11 @@ function PostDetail() {
 							</ul>
 						</div>
 						<div class="board_content">
-							<p>글 내용입니다.</p>
+							<p>이름입니다. : {testList.testName}
+								<ul>
+									
+								</ul>
+							</p>
 						</div>
 					</div>
 					<div class="board_buttons">

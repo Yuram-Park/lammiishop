@@ -3,6 +3,16 @@ import '../css/ProductList.css'
 function ProductList() {
 	return (
 		<div>
+			<div class="shop-list">
+				<ul>
+					<li>All</li>
+					<li>Outer</li>
+					<li>Top</li>
+					<li>Bottom</li>
+					<li>Dress</li>
+					<li>Acc</li>
+				</ul>
+			</div>
 			<section class="serv_list">
 				<div class="container">
 					<div class="title">

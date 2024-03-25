@@ -1,3 +1,22 @@
+.shop-list{
+	height: 60px;
+}
+
+.shop-list ul{
+	text-align: center;
+	align-items: center;
+	padding: 20px 0;
+	list-style: none;
+	font-size: medium;
+}
+
+.shop-list ul li{
+	display: inline;
+	margin-right: 30px;
+}
+
+
+
 .serv_list .container{
 	padding-top: 20px;
 }
