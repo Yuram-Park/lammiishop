@@ -1,16 +1,19 @@
 import '../css/PostDetail.css';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
+import {useParams} from 'react-router-dom';
+import moment from 'moment';
 
 function PostDetail() {
 	
-	const [testList, setTestList] = useState();
+	const {post_id} = useParams();
+	
+	const [post, setPost] = useState();
 	
 	useEffect(()=>{
 		const getTest = async () => {
-			const resp = await axios.get(process.env.REACT_APP_DB_HOST + "/test/1");
-			setTestList(resp.data);
-			console.log(resp.data);
+			const resp = await axios.get(process.env.REACT_APP_DB_HOST + `/post/detail/${post_id}`);
+			setPost(resp.data);
 		}
 		getTest();
 		
@@ -26,17 +29,17 @@ function PostDetail() {
 					</div>
 					<div class="board_text">
 						<div class="title">
-							<h3>id 번호입니다. : {testList.testId}</h3>
+							<h3>{post && post.postTitle}</h3>
 						</div>
 						<div class="board_info">
 							<ul>
-								<li>글쓴이</li>
+								<li>{post && post.userId}</li>
 								<li>views</li>
-								<li>2024-01-01</li>
+								<li>{moment(post && post.createdDate).format("YYYY-MM-DD")}</li>
 							</ul>
 						</div>
 						<div class="board_content">
-							<p>이름입니다. : {testList.testName}
+							<p>{post && post.postContent}
 								<ul>
 									
 								</ul>

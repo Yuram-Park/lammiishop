@@ -1,6 +1,20 @@
 import '../css/PostList.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import moment from 'moment';
 
 function PostList() {
+	
+	const [postList, setPostList] = useState([]);
+	
+	useEffect(()=>{
+		const getPostList = async() => {
+			const resp = await axios.get(process.env.REACT_APP_DB_HOST + "/post/list")
+			setPostList(resp.data);
+			console.log(resp.data);
+		}
+		getPostList();
+	}, []);
 	
 	return (
 		<div>
@@ -32,27 +46,15 @@ function PostList() {
 							<th>일시</th>
 							<th>조회수</th>
 						</tr>
+						{postList && postList.map((post,i)=>
 						<tr>
-							<td class="center">1</td>
-							<td class="left"><a href="/post/detail">게시글 1 입니다.</a></td>
-							<td class="center">김준석</td>
-							<td class="center">2022-05-18</td>
+							<td class="center">{i+1}</td>
+							<td class="left"><a href={`/post/detail/${post.postId}`}>{post.postTitle}</a></td>
+							<td class="center">{post.userId}</td>
+							<td class="center">{moment(post.createdDate).format("YYYY-MM-DD")}</td>
 							<td class="center">15</td>
 						</tr>
-						<tr>
-							<td class="center">2</td>
-							<td class="left">게시글 2 입니다.</td>
-							<td class="center">김준석</td>
-							<td class="center">2022-05-18</td>
-							<td class="center">15</td>
-						</tr>
-						<tr>
-							<td class="center">3</td>
-							<td class="left">게시글 3 입니다.</td>
-							<td class="center">김준석</td>
-							<td class="center">2022-05-18</td>
-							<td class="center">15</td>
-						</tr>
+						)}
 					</table>
 					<br />
 
@@ -64,7 +66,7 @@ function PostList() {
 
 					<span class="right">
 						<input type="button" value="목록" class="greylist" />
-						<input type="button" value="글쓰기" class="gradient" />
+						<a href="/post/post"><input type="button" value="글쓰기" class="gradient" /></a>
 					</span>
 				</div>
 			</section>
