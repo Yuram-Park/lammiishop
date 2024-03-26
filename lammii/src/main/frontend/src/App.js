@@ -11,6 +11,7 @@ import Login from './screens/js/Login';
 import ProductList from './screens/js/ProductList';
 import PostList from './screens/js/PostList';
 import PostDetail from './screens/js/PostDetail';
+import PostPost from './screens/js/PostPost';
 
 function App() {
 
@@ -24,7 +25,8 @@ function App() {
     		<Route path='/login' element={<Login />}></Route>
     		<Route path='/product/list' element={<ProductList/>}></Route>
     		<Route path='/post/list' element={<PostList/>}></Route>
-    		<Route path='/post/detail' element={<PostDetail/>}></Route>
+    		<Route path='/post/detail/:post_id' element={<PostDetail/>}></Route>
+    		<Route path='/post/post' element={<PostPost/>}></Route>
     	</Routes>
     </Router>
   );
