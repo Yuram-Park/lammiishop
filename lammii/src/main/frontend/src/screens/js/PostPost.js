@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 function PostPost () {
 	
+	const navigate = useNavigate();
 	const [postDto, setPostDto] = useState({
 		postTitle: "",
 		postContent: ""
 	});
-	const navigate = useNavigate();
+	
 	
 	const inputText = (event) => {
 		const {name, value} = event.target;

@@ -25,13 +25,17 @@ public class PostService {
 		return postList;
 	}
 	
-	public PostResponseDto getPostOne(int id) {
-		Post post = postRepository.findById(id).orElseThrow();
+	public PostResponseDto getPostOne(int post_id) {
+		Post post = postRepository.findById(post_id).orElseThrow();
 		return new PostResponseDto(post);
 	}
 	
 	public void setPost(PostRequestDto postDto) {
 		postDto.setUserId("푸들조아");
 		postRepository.save(postDto.toEntity());
+	}
+	
+	public void deletePost(int post_id) {
+		postRepository.deleteById(post_id);
 	}
 }
