@@ -11,6 +11,10 @@ function PostDetail() {
 	const {post_id} = useParams();
 	
 	const [post, setPost] = useState();
+	const [postDto, setPostDto] = useState({
+		postTitle: "",
+		postContent: ""
+	});
 	
 	useEffect(()=>{
 		const getTest = async () => {
@@ -21,13 +25,14 @@ function PostDetail() {
 		
 	}, [])
 	
-	const updatePost = () => {
-		navigate("/post/update/"+post_id);
+	const inputText = (event) => {
+		const {name, value} = event.target;
+		setPostDto({...postDto, [name]:value});
 	}
 	
-	const deletePost = async() => {
-		await axios.delete(process.env.REACT_APP_DB_HOST + `/post/delete/${post_id}`);
-		alert("삭제되었습니다.");
+	const sendPost = async(event) => {
+		await axios.patch(process.env.REACT_APP_DB_HOST + "/post/update/"+post_id, postDto);
+		alert("수정되었습니다.");
 		navigate("/post/list");
 	}
 	
@@ -41,7 +46,7 @@ function PostDetail() {
 					</div>
 					<div class="board_text">
 						<div class="title">
-							<h3>{post && post.postTitle}</h3>
+							<input type="text" name="postTitle" onChange={inputText} defaultValue={post && post.postTitle}/>
 						</div>
 						<div class="board_info">
 							<ul>
@@ -51,17 +56,12 @@ function PostDetail() {
 							</ul>
 						</div>
 						<div class="board_content">
-							<p>{post && post.postContent}
-								<ul>
-									
-								</ul>
-							</p>
+							<textarea name="postContent" onChange={inputText} defaultValue={post && post.postContent}></textarea>
 						</div>
 					</div>
 					<div class="board_buttons">
 						<a href="/post/list"><button>글목록</button></a>
-						<button onClick={updatePost}>수정</button>
-						<button onClick={deletePost}>삭제</button>
+						<button onClick={sendPost}>수정하기</button>
 					</div>
 				</div>
 			</section>
