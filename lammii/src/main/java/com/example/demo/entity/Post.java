@@ -50,4 +50,9 @@ public class Post extends Time{
 		this.postContent = postContent;
 	}
 	
+	public void update(String postTitle, String postContent) {
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+	}
+	
 }

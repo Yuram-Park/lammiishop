@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +31,7 @@ public class PostController {
 	}
 	
 	@GetMapping("/detail/{post_id}")
-	public PostResponseDto getPostOne(@PathVariable("post_id") Integer post_id) {
+	public PostResponseDto getPostOne(@PathVariable("post_id") int post_id) {
 		return postService.getPostOne(post_id);
 	}
 
@@ -38,5 +40,14 @@ public class PostController {
 		postService.setPost(postDto);
 	}
 	
+	@DeleteMapping("/delete/{post_id}")
+	public void deletePost(@PathVariable("post_id") int post_id) {
+		postService.deletePost(post_id);
+	}
+	
+	@PatchMapping("/update/{post_id}")
+	public void updatePost(@PathVariable("post_id") int post_id, @RequestBody PostRequestDto postDto) {
+		postService.updatePost(post_id, postDto);
+	}
 	
 }

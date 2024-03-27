@@ -3,9 +3,11 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import moment from 'moment';
+import { useNavigate } from "react-router-dom";
 
 function PostDetail() {
 	
+	const navigate = useNavigate();
 	const {post_id} = useParams();
 	
 	const [post, setPost] = useState();
@@ -18,6 +20,16 @@ function PostDetail() {
 		getTest();
 		
 	}, [])
+	
+	const updatePost = () => {
+		navigate("/post/update/"+post_id);
+	}
+	
+	const deletePost = async() => {
+		await axios.delete(process.env.REACT_APP_DB_HOST + `/post/delete/${post_id}`);
+		alert("삭제되었습니다.");
+		navigate("/post/list");
+	}
 	
 	return (
 		<div>
@@ -48,8 +60,8 @@ function PostDetail() {
 					</div>
 					<div class="board_buttons">
 						<a href="/post/list"><button>글목록</button></a>
-						<button>수정</button>
-						<button>삭제</button>
+						<button onClick={updatePost}>수정</button>
+						<button onClick={deletePost}>삭제</button>
 					</div>
 				</div>
 			</section>

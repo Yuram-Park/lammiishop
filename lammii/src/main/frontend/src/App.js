@@ -12,6 +12,7 @@ import ProductList from './screens/js/ProductList';
 import PostList from './screens/js/PostList';
 import PostDetail from './screens/js/PostDetail';
 import PostPost from './screens/js/PostPost';
+import PostUpdate from './screens/js/PostUpdate';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
     		<Route path='/post/list' element={<PostList/>}></Route>
     		<Route path='/post/detail/:post_id' element={<PostDetail/>}></Route>
     		<Route path='/post/post' element={<PostPost/>}></Route>
+    		<Route path='/post/update/:post_id' element={<PostUpdate/>}></Route>
     	</Routes>
     </Router>
   );
