@@ -2,10 +2,13 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +51,11 @@ public class PostController {
 	@PatchMapping("/update/{post_id}")
 	public void updatePost(@PathVariable("post_id") int post_id, @RequestBody PostRequestDto postDto) {
 		postService.updatePost(post_id, postDto);
+	}
+	
+	@PostMapping("/reviews")
+	public ResponseEntity<String> writeReview(Authentication authentication){
+		return ResponseEntity.ok().body(authentication.getName() + "님의 리뷰 등록이 완료되었습니다.");
 	}
 	
 }

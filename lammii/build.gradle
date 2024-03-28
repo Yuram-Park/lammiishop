@@ -25,8 +25,14 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
 	compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-	
-	
+    
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation group: 'org.springframework.security', name: 'spring-security-test'
+    
+	// JWT
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'javax.xml.bind:jaxb-api:2.3.0'
 }
 
 tasks.named('test') {
