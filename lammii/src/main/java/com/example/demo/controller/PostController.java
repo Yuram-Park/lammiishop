@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,8 +43,8 @@ public class PostController {
 	
 	
 	@PostMapping("/reviews")
-	public ResponseEntity<String> writeReview(){
-		return ResponseEntity.ok().body("리뷰 등록이 완료되었습니다.");
+	public ResponseEntity<String> writeReview(Authentication authentication){
+		return ResponseEntity.ok().body(authentication.getName() + "님의 리뷰 등록이 완료되었습니다.");
 	}
 	
 }

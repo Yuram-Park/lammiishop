@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.UserJoinRequestDto;
+import com.example.demo.dto.UserLoginRequestDto;
 import com.example.demo.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(){
-		return ResponseEntity.ok().body("token");
+	public ResponseEntity<String> login(@RequestBody UserLoginRequestDto dto){
+		String token = userService.login(dto.getUserId(), dto.getUserPw());
+		return ResponseEntity.ok().body(token);
 	}
 }
