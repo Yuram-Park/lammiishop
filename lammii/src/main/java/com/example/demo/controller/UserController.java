@@ -21,13 +21,13 @@ public class UserController {
 	
 	@PostMapping("/join")
 	public ResponseEntity<String> join(@RequestBody UserJoinRequestDto dto) {
-		userService.join(dto.getUserId(), dto.getUserPw());
+		//userService.join(dto.getUserId(), dto.getUserPw());
 		return ResponseEntity.ok().body("회원가입 성공");
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody UserLoginRequestDto dto){
-		String token = userService.login(dto.getUserId(), dto.getUserPw());
-		return ResponseEntity.ok().body(token);
+	public String login(@RequestBody UserLoginRequestDto dto){
+		String result = userService.login(dto.getUserId(), dto.getUserPw());
+		return result;
 	}
 }

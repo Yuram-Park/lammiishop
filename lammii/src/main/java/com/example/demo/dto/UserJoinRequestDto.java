@@ -11,4 +11,8 @@ public class UserJoinRequestDto {
 
 	private String userId;
 	private String userPw;
+	private String userName;
+	private String userNickname;
+	private String userBirth;
+	private String userEmail;
 }

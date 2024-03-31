@@ -35,7 +35,7 @@ public class AuthenticationConfig {
 				.cors(Customizer.withDefaults())
 				.authorizeHttpRequests(authorize -> 
 					authorize
-					.requestMatchers("/user/login", "user/join").permitAll() //join, login은 언제나 가능
+					.requestMatchers("/user/login", "user/join", "/**").permitAll() //join, login은 언제나 가능
 					.requestMatchers(HttpMethod.POST, "/post/**").authenticated()
 				)
 				.sessionManagement(session ->

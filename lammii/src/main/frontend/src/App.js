@@ -7,12 +7,14 @@ import Navbar from './components/js/Navbar';
 import Main from './screens/js/Main';
 
 // 페이지
+import Join from './screens/js/Join';
 import Login from './screens/js/Login';
 import ProductList from './screens/js/ProductList';
 import PostList from './screens/js/PostList';
 import PostDetail from './screens/js/PostDetail';
 import PostPost from './screens/js/PostPost';
 import PostUpdate from './screens/js/PostUpdate';
+
 
 function App() {
 
@@ -23,6 +25,7 @@ function App() {
 		
     	<Routes>
     		<Route path='/' element={<Main />}></Route>
+    		<Route path='/join' element={<Join />}></Route>
     		<Route path='/login' element={<Login />}></Route>
     		<Route path='/product/list' element={<ProductList/>}></Route>
     		<Route path='/post/list' element={<PostList/>}></Route>

@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ public class UserService {
 	
 	private Long expireTimeMs = 1000 * 60 * 60l; // 1h
 
+	
 	public String join(String userId, String userPw) {
 		
 		// userId 중복 체크
@@ -47,16 +50,18 @@ public class UserService {
 	public String login(String userId, String userPw) {
 		
 		// userId 없음
-		User selectedUser = userRepository.findByUserId(userId)
-				.orElseThrow(()->new AppException(ErrorCode.USERNAME_NOT_FOUND, userId + "이 없습니다."));
+		Optional<User> selectedUser = userRepository.findByUserId(userId);
 		
+		if(selectedUser.orElse(null) == null) {
+			return "NoID";
+		}
 		// userPw 틀림
-		if(!encoder.matches(userPw, selectedUser.getUserPw())) {
-			throw new AppException(ErrorCode.INVALID_PASSWORD, "패스워드를 잘못 입력 했습니다.");
+		if(!encoder.matches(userPw, selectedUser.get().getUserPw())) {
+			return "WorongPw";
 		}
 		
 		// 앞에서 Exception 안났으면 토큰 발행
-		String token = JwtTokenUtil.createToken(selectedUser.getUserId(), key, expireTimeMs);
+		String token = JwtTokenUtil.createToken(selectedUser.get().getUserId(), key, expireTimeMs);
 		
 		return token;
 	}
