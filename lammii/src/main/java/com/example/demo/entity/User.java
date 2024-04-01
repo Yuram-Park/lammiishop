@@ -1,8 +1,12 @@
 package com.example.demo.entity;
 
 
+import com.example.demo.dto.Role;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +38,7 @@ public class User {
 	@Column(length = 50)
 	private String userEmail;
 	
-	private boolean userRole;
+	@Enumerated(EnumType.STRING)
+	private Role userRole;
 	
 }

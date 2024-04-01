@@ -1,12 +1,16 @@
 package com.example.demo.service;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.Role;
+import com.example.demo.dto.UserJoinRequestDto;
 import com.example.demo.entity.User;
 import com.example.demo.exception.AppException;
 import com.example.demo.exception.ErrorCode;
@@ -28,18 +32,24 @@ public class UserService {
 	private Long expireTimeMs = 1000 * 60 * 60l; // 1h
 
 	
-	public String join(String userId, String userPw) {
+	public String join(UserJoinRequestDto dto) {
 		
-		// userId 중복 체크
-		userRepository.findByUserId(userId)
-			.ifPresent(user -> {
-				throw new AppException( ErrorCode.USERNAME_DUPLICATED, userId + "는 이미 있습니다.");
-			});
+		Optional<User> userCheck = userRepository.findByUserId(dto.getUserId());
 		
-		// 저장
+		// userId 중복인 경우
+		if(userCheck.isPresent()) {
+			return "FAIL";
+		}
+		
+		// 아닌 경우, 저장
 		User user = User.builder()
-				.userId(userId)
-				.userPw(encoder.encode(userPw))
+				.userId(dto.getUserId())
+				.userPw(encoder.encode(dto.getUserPw()))
+				.userName(dto.getUserName())
+				.userNickname(dto.getUserNickname())
+				.userBirth(dto.getUserBirth())
+				.userEmail(dto.getUserEmail())
+				.userRole(Role.USER)
 				.build();
 		
 		userRepository.save(user);
@@ -47,22 +57,28 @@ public class UserService {
 		return "SUCCESS";
 	}
 	
-	public String login(String userId, String userPw) {
+	public Map login(String userId, String userPw) {
+		
+		Map result = new HashMap();
 		
 		// userId 없음
 		Optional<User> selectedUser = userRepository.findByUserId(userId);
 		
 		if(selectedUser.orElse(null) == null) {
-			return "NoID";
+			result.put("response", "noid");
+			return result;
 		}
 		// userPw 틀림
 		if(!encoder.matches(userPw, selectedUser.get().getUserPw())) {
-			return "WorongPw";
+			result.put("response", "wrongpw");
+			return result;
 		}
 		
 		// 앞에서 Exception 안났으면 토큰 발행
 		String token = JwtTokenUtil.createToken(selectedUser.get().getUserId(), key, expireTimeMs);
-		
-		return token;
+		result.put("response", "ok");
+		result.put("token", token);
+		result.put("userNickname", selectedUser.get().getUserNickname());
+		return result;
 	}
 }

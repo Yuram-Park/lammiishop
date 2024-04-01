@@ -1,11 +1,11 @@
 import '../css/Login.css';
-
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 function Join() {
 	
+	const navigate = useNavigate();
 	const [join, setJoin] = useState({});
 	
 	const inputText = (event) => {
@@ -14,7 +14,13 @@ function Join() {
 	}
 	
 	const goJoin = async() => {
-		await axios.post(process.env.REACT_APP_DB_HOST + "/user/join", join);
+		const resp = await axios.post(process.env.REACT_APP_DB_HOST + "/user/join", join);
+		if(resp.status == 200){
+			alert("회원가입 되었습니다.");
+			navigate("/user/login");
+		} else {
+			alert("중복된 아이디입니다.");
+		}
 	}
 	
 	return (

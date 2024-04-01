@@ -15,14 +15,12 @@ function Login() {
 	
 	const goLogin = async() => {
 		const resp = await axios.post(process.env.REACT_APP_DB_HOST + "/user/login", login);
-		if (resp.data == "NoID"){
-			alert("아이디가 없는 계정입니다.");
-		} else if (resp.data == "WorongPw") {
-			alert("비밀번호가 틀립니다.")
-		} else {
-			alert("로그인되었습니다.");
-			localStorage.setItem("jwt", resp.data);
+		if (resp.status == 200){
+			alert(`${resp.data.userNickname}님 로그인 되었습니다.`);
+			localStorage.setItem("jwt", resp.data.token);
 			navigate("/");
+		} else {
+			alert("로그인에 실패했습니다.");
 		}
 	}
 	return (
