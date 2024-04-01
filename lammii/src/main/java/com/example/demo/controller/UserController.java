@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +23,21 @@ public class UserController {
 	
 	@PostMapping("/join")
 	public ResponseEntity<String> join(@RequestBody UserJoinRequestDto dto) {
-		userService.join(dto.getUserId(), dto.getUserPw());
-		return ResponseEntity.ok().body("회원가입 성공");
+		String result = userService.join(dto);
+		if(result.equals("FAIL")) {
+			return ResponseEntity.badRequest().body("중복된 아이디입니다.");
+		} else {
+			return ResponseEntity.ok().body("회원가입 성공");
+		}
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody UserLoginRequestDto dto){
-		String token = userService.login(dto.getUserId(), dto.getUserPw());
-		return ResponseEntity.ok().body(token);
+	public ResponseEntity<Map> login(@RequestBody UserLoginRequestDto dto){
+		Map result = (Map) userService.login(dto.getUserId(), dto.getUserPw());
+		if(result.get("response").equals("ok")) {
+			return ResponseEntity.ok().body(result);
+		} else {
+			return ResponseEntity.badRequest().body(result);
+		}
 	}
 }
