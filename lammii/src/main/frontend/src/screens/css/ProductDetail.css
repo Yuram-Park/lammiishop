@@ -1,0 +1,9 @@
+.container .represntative {
+	
+}
+
+.container .represntative .img {
+	background-color: gray;
+	width: 200px;
+	height: 200px;
+}
