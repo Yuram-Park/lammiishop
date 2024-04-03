@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -33,5 +34,10 @@ public class ProductService {
 		List<ProductResponseDto> productList = productEntity.stream().map(ProductResponseDto::new).collect(Collectors.toList());
 		
 		return productList;
+	}
+	
+	public ProductResponseDto getProductDetail(int productId) {
+		Product product = productRepository.findById(productId).orElseThrow();
+		return new ProductResponseDto(product);
 	}
 }

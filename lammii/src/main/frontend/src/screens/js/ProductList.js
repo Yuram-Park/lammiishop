@@ -1,11 +1,12 @@
 import '../css/ProductList.css'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductHeader from '../../components/js/ProductHeader';
 
 function ProductList() {
 	
+	const navigate = useNavigate();
 	let {category} = useParams();
 	let {detail} =useParams();
 	
@@ -63,7 +64,7 @@ function ProductList() {
 								<div class="text">
 									<h2>{list.productName}</h2>
 									<p>긴 기장이 매력적인 스커트</p>
-									<a href="/product/detail"><button><i class="fas fa-check"></i>사러가기</button></a>
+									<button onClick={() => {navigate("/product/detail/"+list.productId)}}><i class="fas fa-check"></i>사러가기</button>
 								</div>
 							</div>
 						})}

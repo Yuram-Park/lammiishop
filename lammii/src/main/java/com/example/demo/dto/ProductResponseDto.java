@@ -17,6 +17,7 @@ public class ProductResponseDto {
 
 	private Integer productId;
 	private String productCategory;
+	private String productCategoryDetail;
 	private String productName;
 	private String productInform;
 	private Integer productPrice;
@@ -26,6 +27,7 @@ public class ProductResponseDto {
 	public ProductResponseDto(Product product) {
 		this.productId = product.getProductId();
 		this.productCategory = product.getProductCategory();
+		this.productCategoryDetail = product.getProductCategoryDetail();
 		this.productName = product.getProductName();
 		this.productInform = product.getProductInform();
 		this.productPrice = product.getProductPrice();

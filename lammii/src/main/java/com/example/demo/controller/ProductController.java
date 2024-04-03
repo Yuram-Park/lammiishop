@@ -23,4 +23,10 @@ public class ProductController {
 	public List<ProductResponseDto> getProductList(@PathVariable("category") String category, @PathVariable("detail") String detail) {
 		return productService.getProductList(category, detail.toLowerCase());
 	}
+	
+	@GetMapping("/detail/{productId}")
+	public ProductResponseDto getProductDetail(@PathVariable("productId") int productId) {
+		System.out.println(productId);
+		return productService.getProductDetail(productId);
+	}
 }
