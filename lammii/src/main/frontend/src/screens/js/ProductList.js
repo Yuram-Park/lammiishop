@@ -1,91 +1,73 @@
 import '../css/ProductList.css'
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import ProductHeader from '../../components/js/ProductHeader';
 
 function ProductList() {
+	
+	const navigate = useNavigate();
+	let {category} = useParams();
+	let {detail} =useParams();
+	
+	const outer = [ "All", "Jacket", "Coat", "Padding", "Cardigan"];
+	const top = ["All", "T-shirts", "Blouse/Shirts", "Sweatshirt", "Hood"];
+	const bottom = ["All", "Skirt", "Denim", "Pants"];
+	const dress = ["All", "Short", "Middle", "Long", "Maxi"];
+	const acc = ["All", "Necklase", "Earring","Bracelet"];
+	
+	const [detailedCategory, setDetailedCategory] = useState([]);
+	const [productList, setProductList] = useState([])
+	
+	useEffect(()=>{
+		if (category === "OUTER") {
+			setDetailedCategory(outer);
+		} else if (category === "TOP") {
+			setDetailedCategory(top);
+		} else if (category === "BOTTOM") {
+			setDetailedCategory(bottom);
+		} else if (category === "DRESS") {
+			setDetailedCategory(dress); 
+		} else if (category === "ACC") {
+			setDetailedCategory(acc);
+		}
+		const getProductList = async() => {
+			const resp = await axios.get(process.env.REACT_APP_DB_HOST + `/product/list/${category}/${detail}`);
+			setProductList(resp.data);
+		}
+		getProductList();
+		
+	}, []);
+
 	return (
 		<div>
-			<div class="shop-list">
-				<ul>
-					<li>All</li>
-					<li>Outer</li>
-					<li>Top</li>
-					<li>Bottom</li>
-					<li>Dress</li>
-					<li>Acc</li>
-				</ul>
-			</div>
+			<ProductHeader ></ProductHeader>
 			<section class="serv_list">
 				<div class="container">
 					<div class="title">
-						<h1>SKIRT</h1>
+						<h1>{category}</h1>
 						<hr class="hr1" noshade />
 						<ul>
-							<li><a href="">Short</a></li>
-							<li><a href="">Middle</a></li>
-							<li><a href="">Long</a></li>
-							<li><a href="">Maxi</a></li>
+							{category === "ALL" ?
+								<li></li> :
+								detailedCategory && detailedCategory.map((list) => {
+									return <li><a href={"/product/list/" + category + "/" + list}>{list}</a></li>
+								})}
 						</ul>
 					</div>
 					<div class="item_list">
-						<div class="card">
-							<div class="img">
-								<img src="" alt=''/>
+						{productList && productList.map((list) => {
+							return <div class="card">
+								<div class="img">
+									<img src="" alt='' />
+								</div>
+								<div class="text">
+									<h2>{list.productName}</h2>
+									<p>긴 기장이 매력적인 스커트</p>
+									<button onClick={() => {navigate("/product/detail/"+list.productId)}}><i class="fas fa-check"></i>사러가기</button>
+								</div>
 							</div>
-							<div class="text">
-								<h2>Long Skirt</h2>
-								<p>긴 기장이 매력적인 스커트</p>
-								<button><i class="fas fa-check"></i>사러가기</button>
-							</div>
-						</div>
-						<div class="card">
-							<div class="img">
-								<img src="" alt=''/>
-							</div>
-							<div class="text">
-								<h2>Long Skirt</h2>
-								<p>긴 기장이 매력적인 스커트</p>
-								<button><i class="fas fa-check"></i>사러가기</button>
-							</div>
-						</div>
-						<div class="card">
-							<div class="img">
-								<img src="" alt=''/>
-							</div>
-							<div class="text">
-								<h2>React</h2>
-								<p>유저 인터페이스를 만드는 데 사용되는 </p>
-								<button><i class="fas fa-check"></i>사러가기</button>
-							</div>
-						</div>
-						<div class="card">
-							<div class="img">
-								<img src="" alt=''/>
-							</div>
-							<div class="text">
-								<h2>React</h2>
-								<p>유저 인터페이스를 만드는 데 사용되는 </p>
-								<button><i class="fas fa-check"></i>사러가기</button>
-							</div>
-						</div>
-						<div class="card">
-							<div class="img">
-								<img src="" alt=''/>
-							</div>
-							<div class="text">
-								<h2>React</h2>
-								<p>유저 인터페이스를 만드는 데 사용되는 </p>
-								<button><i class="fas fa-check"></i>사러가기</button>
-							</div>
-						</div>
-						<div class="card">
-							<div class="img">
-								<img src="" alt=''/>
-							</div>
-							<div class="text">
-								<h2>React</h2>
-								<p>유저 인터페이스를 만드는 데 사용되는 </p>
-								<button><i class="fas fa-check"></i>사러가기</button>
-							</div>
-						</div>
+						})}
 					</div>
 				</div>
 			</section>
