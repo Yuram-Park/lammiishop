@@ -1,14 +1,18 @@
 package com.example.demo.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.ProductImgResponseDto;
 import com.example.demo.dto.ProductResponseDto;
 import com.example.demo.entity.Product;
+import com.example.demo.entity.ProductImg;
+import com.example.demo.repository.ProductImgRepository;
 import com.example.demo.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class ProductService {
 
 	private final ProductRepository productRepository;
+	private final ProductImgRepository productImgRepository;
 	
 	public List<ProductResponseDto> getProductList(String category, String detail) {
 		
@@ -36,8 +41,14 @@ public class ProductService {
 		return productList;
 	}
 	
-	public ProductResponseDto getProductDetail(int productId) {
+	public Map<String, Object> getProductDetail(int productId) {
 		Product product = productRepository.findById(productId).orElseThrow();
-		return new ProductResponseDto(product);
+		ProductImg productImg = productImgRepository.findByProduct_ProductId(productId);
+		ProductResponseDto productDto = new ProductResponseDto(product);
+		ProductImgResponseDto productImgDto = new ProductImgResponseDto(productImg);
+		Map<String, Object> map = new HashMap<>();
+		map.put("product", productDto);
+		map.put("productImg", productImgDto);
+		return map;
 	}
 }

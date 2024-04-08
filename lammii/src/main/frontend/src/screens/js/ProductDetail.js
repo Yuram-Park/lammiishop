@@ -9,11 +9,14 @@ function ProductDetail() {
 	let {productId} = useParams();
 	
 	const [productDetail, setProductDetail] = useState({});
+	const [productImg, setProductImg] = useState({});
 	
 	useEffect(()=>{
 		const getProductDetail = async() => {
 			const resp = await axios.get(process.env.REACT_APP_DB_HOST + `/product/detail/${productId}`);
-			setProductDetail(resp.data);
+			setProductDetail(resp.data.product);
+			setProductImg(resp.data.productImg);
+			console.log(resp.data.productImg)
 		}
 		getProductDetail();
 	}, []);
@@ -24,7 +27,7 @@ function ProductDetail() {
 			<div class="container">
 				<div class="representative">
 					<div class="img">
-						<img src="" alt='' />
+						<img src={`${process.env.PUBLIC_URL}/img/${productImg.productImgUrl}`} alt='' />
 					</div>
 					<div class="detail">
 						<h1>{productDetail.productName}</h1>

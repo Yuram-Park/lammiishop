@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +26,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/detail/{productId}")
-	public ProductResponseDto getProductDetail(@PathVariable("productId") int productId) {
-		System.out.println(productId);
+	public Map<String, Object> getProductDetail(@PathVariable("productId") int productId) {
 		return productService.getProductDetail(productId);
 	}
 }
