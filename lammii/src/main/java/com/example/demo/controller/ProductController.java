@@ -20,9 +20,14 @@ public class ProductController {
 
 	private final ProductService productService;
 	
-	@GetMapping("/list/{category}/{detail}")
-	public List<ProductResponseDto> getProductList(@PathVariable("category") String category, @PathVariable("detail") String detail) {
-		return productService.getProductList(category, detail.toLowerCase());
+//	@GetMapping("/list/{category}/{detail}")
+//	public List<ProductResponseDto> getProductList(@PathVariable("category") String category, @PathVariable("detail") String detail) {
+//		return productService.getProductList(category, detail.toLowerCase());
+//	}
+	
+	@GetMapping("/list/{category}")
+	public ProductResponseDto getProductList(@PathVariable("category") String category) {
+		return productService.getProductList(category);
 	}
 	
 	@GetMapping("/detail/{productId}")
