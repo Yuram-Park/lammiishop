@@ -1,9 +1,10 @@
 package com.example.demo.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +36,7 @@ public class Product extends Time{
 	    	strategy = GenerationType.SEQUENCE
 	    	, generator = "PRODUCT_ID_SEQ_GENERATOR"
 	    )
+	@Column(name="product_id")
 	private Integer productId;
 	
 	@Column(length = 10)
@@ -54,7 +56,8 @@ public class Product extends Time{
 	private Integer productQuantity;
 	
 	@OneToMany(mappedBy = "product")
-	private List<ProductImg> productImg = new ArrayList<ProductImg>();
+	@JsonIgnoreProperties({"product"})
+	private List<ProductImg> productImg;
 	
 	
 }

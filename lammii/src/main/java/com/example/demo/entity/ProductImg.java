@@ -20,7 +20,7 @@ public class ProductImg {
 	private Integer productImgId;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "product_id")
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private Product product;
 	
 	@Column(length = 1000)

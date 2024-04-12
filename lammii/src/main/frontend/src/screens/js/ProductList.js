@@ -32,8 +32,7 @@ function ProductList() {
 			setDetailedCategory(acc);
 		}
 		const getProductList = async() => {
-			//const resp = await axios.get(process.env.REACT_APP_DB_HOST + `/product/list/${category}/${detail}`);
-			const resp = await axios.get(process.env.REACT_APP_DB_HOST + `/product/list/${category}`);
+			const resp = await axios.get(process.env.REACT_APP_DB_HOST + `/product/list/${category}/${detail}`);
 			setProductList(resp.data);
 			console.log(resp.data)
 		}
@@ -58,7 +57,18 @@ function ProductList() {
 						</ul>
 					</div>
 					<div class="item_list">
-						
+					{productList && productList.map((product) => 
+						<div class="card">
+							<div class="img">
+								<img src={`${process.env.PUBLIC_URL}/img/${product.productImg[0].productImgUrl}`} alt='' />
+							</div>
+							<div class="text">
+								<h2>{product.productName}</h2>
+								<p>{product.productInform}</p>
+								<button onClick={()=>{navigate("/product/detail/"+product.productId)}}><i class="fas fa-check"></i>사러가기</button>
+							</div>
+						</div>
+					)}
 					</div>
 				</div>
 			</section>

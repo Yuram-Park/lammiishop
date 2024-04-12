@@ -24,27 +24,21 @@ public class ProductService {
 	private final ProductRepository productRepository;
 	private final ProductImgRepository productImgRepository;
 	
-//	public List<ProductResponseDto> getProductList(String category, String detail) {
-//		
-//		List<Product> productEntity = new ArrayList<Product>();
-//				
-//		if(category.equals("ALL")) {
-//			 productEntity = productRepository.findAll();
-//		} else if(!category.equals("ALL") && detail.equals("all")) {
-//			productEntity = productRepository.findAllByProductCategory(category);
-//		} else {
-//			productEntity = productRepository.findAllByProductCategoryAndProductCategoryDetail(category, detail);
-//		}
-//		
-//		List<ProductResponseDto> productList = productEntity.stream().map(ProductResponseDto::new).collect(Collectors.toList());
-//		
-//		return productList;
-//	}
-	
-	public ProductResponseDto getProductList(String category){
-		Product product = productRepository.findByProductCategory(category);
-		ProductResponseDto productDto = new ProductResponseDto(product);
-		return productDto;
+	public List<ProductResponseDto> getProductList(String category, String detail){
+		
+		List<Product> productEntity = new ArrayList<Product>();
+		
+		if(category.equals("ALL")) {
+			productEntity = productRepository.findAllWithImg();
+		} else if(!category.equals("ALL") && detail.equals("all")) {
+			productEntity = productRepository.findAllByProductCategory(category);
+		} else {
+			productEntity = productRepository.findAllByProductCategoryAndProductCategoryDetail(category, detail);
+		}
+		
+		List<ProductResponseDto> productList = productEntity.stream().map(ProductResponseDto::new).collect(Collectors.toList());
+		
+		return productList;
 	}
 	
 	public Map<String, Object> getProductDetail(int productId) {

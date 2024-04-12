@@ -8,12 +8,14 @@
 	margin-top: 50px;
 	margin-bottom: 50px;
 	margin-left: 50px;
+	text-align: center;
 }
 
 .container .representative .img img {
 	border: 1px solid black;
 	width: 500px;
 	height: 500px;
+	object-fit: contain;
 }
 
 .container .representative .detail {
