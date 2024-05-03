@@ -21,5 +21,13 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	@Query(value = "SELECT a.* FROM product a LEFT OUTER JOIN product_img b ON a.product_id = b.product_id WHERE a.product_category = :productCategory AND a.product_category_detail = :productCategoryDetail", nativeQuery = true)
 	List<Product> findAllByProductCategoryAndProductCategoryDetail(@Param("productCategory") String productCategory, @Param("productCategoryDetail") String productCategoryDetail);
 	
-
+	// detail, img, option join으로 가져오기
+	@Query(value = "SELECT a.* from product a LEFT JOIN product_img b ON a.product_id = b.product_id LEFT JOIN product_option c ON a.product_id = c.product_id WHERE a.product_id = :productId", nativeQuery = true)
+	Product findByIdWithDetail(@Param("productId")int productId);
+	
+	// 게시글 1개 detail, option 가져오기
+	@Query(value = "SELECT a.* from product a LEFT JOIN product_option b ON a.product_id = b.product_id WHERE a.product_id = :productId", nativeQuery = true)
+	Product findByIdWithOption(@Param("productId")int productId);
+	
+	
 }

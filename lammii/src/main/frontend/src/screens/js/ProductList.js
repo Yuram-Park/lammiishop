@@ -34,7 +34,6 @@ function ProductList() {
 		const getProductList = async() => {
 			const resp = await axios.get(process.env.REACT_APP_DB_HOST + `/product/list/${category}/${detail}`);
 			setProductList(resp.data);
-			console.log(resp.data)
 		}
 		getProductList();
 		

@@ -25,7 +25,7 @@ public class ProductController {
 		return productService.getProductList(category, detail.toLowerCase());
 	}
 	
-	
+	// Product detail 1개
 	@GetMapping("/detail/{productId}")
 	public Map<String, Object> getProductDetail(@PathVariable("productId") int productId) {
 		return productService.getProductDetail(productId);

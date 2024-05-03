@@ -38,6 +38,7 @@
 	border: 1px sold black;
 	width: 70px;
 	text-align: center;
+	font-size: 15px;
 }
 
 .container .representative .detail .color-check input[type=radio]:checked + label {
@@ -58,6 +59,7 @@
 	border: 1px sold black;
 	width: 70px;
 	text-align: center;
+	font-size: 17px;
 }
 
 .container .representative .detail .size-check input[type=radio]:checked + label {

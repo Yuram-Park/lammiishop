@@ -59,5 +59,9 @@ public class Product extends Time{
 	@JsonIgnoreProperties({"product"})
 	private List<ProductImg> productImg;
 	
+	@OneToMany(mappedBy = "product")
+	@JsonIgnoreProperties({"product"})
+	private List<ProductOption> productOption;
+	
 	
 }

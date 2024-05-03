@@ -9,17 +9,30 @@ function ProductDetail() {
 	let {productId} = useParams();
 	
 	const [productDetail, setProductDetail] = useState({});
-	const [productImg, setProductImg] = useState({});
+	const [productImg, setProductImg] = useState([]);
+	const [productOption, setProductOption] = useState([]);
 	
 	useEffect(()=>{
 		const getProductDetail = async() => {
 			const resp = await axios.get(process.env.REACT_APP_DB_HOST + `/product/detail/${productId}`);
-			setProductDetail(resp.data.product);
-			setProductImg(resp.data.productImg);
-			console.log(resp.data.productImg)
+			
+			setProductDetail(resp.data.detail);
+			setProductImg(resp.data.img)
+			setProductOption(resp.data.detail.productOption);
 		}
 		getProductDetail();
 	}, []);
+	console.log(productDetail)
+	
+	let colors = [];
+	let sizes = [];
+	
+	if(productDetail){
+		for(let item of productOption){
+			colors.push(item.productColor);
+			sizes.push(item.productSize);
+		}
+	}
 	
 	return (
 		<div>
@@ -27,7 +40,7 @@ function ProductDetail() {
 			<div class="container">
 				<div class="representative">
 					<div class="img">
-						<img src={`${process.env.PUBLIC_URL}/img/${productImg.productImgUrl}`} alt='' />
+						<img src={productImg && productImg[0] ? `${process.env.PUBLIC_URL}/img/${productImg[0].productImgUrl}` : ""} alt='' />
 					</div>
 					<div class="detail">
 						<h1>{productDetail.productName}</h1>
@@ -35,13 +48,15 @@ function ProductDetail() {
 						<h6>{productDetail.productPrice}원</h6>
 						<div class="color-check">
 							COLOUR<br/>
-							<input type="radio" class="color" id="black"/><label for="black">Black</label>
-							<input type="radio" class="color" id="white"/><label for="white">White</label>
+							{colors.filter((e, idx) => colors.indexOf(e) == idx).map((color) => 
+								<><input type="radio" class="color" id="black"/><label for="black">{color}</label></>
+							)}
 						</div>
 						<div class="size-check">
-							COLOUR<br/>
-							<input type="radio" class="size" id="xs"/><label for="xs">XS</label>
-							<input type="radio" class="size" id="s"/><label for="s">S</label>
+							SIZE<br/>
+							{sizes.filter((e, idx) => sizes.indexOf(e) == idx).map((size) => 
+								<><input type="radio" class="size" id="xs"/><label for="xs">{size}</label></>
+							)}
 						</div>
 						<button><i class="fas fa-check"></i>ADD CART</button>
 					</div>
