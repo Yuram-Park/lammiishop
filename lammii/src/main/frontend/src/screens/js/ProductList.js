@@ -56,18 +56,18 @@ function ProductList() {
 						</ul>
 					</div>
 					<div class="item_list">
-						{productList && productList.map((list) => {
-							return <div class="card">
-								<div class="img">
-									<img src="" alt='' />
-								</div>
-								<div class="text">
-									<h2>{list.productName}</h2>
-									<p>긴 기장이 매력적인 스커트</p>
-									<button onClick={() => {navigate("/product/detail/"+list.productId)}}><i class="fas fa-check"></i>사러가기</button>
-								</div>
+					{productList && productList.map((product) => 
+						<div class="card">
+							<div class="img">
+								<img src={`${process.env.PUBLIC_URL}/img/${product.productImg[0].productImgUrl}`} alt='' />
 							</div>
-						})}
+							<div class="text">
+								<h2>{product.productName}</h2>
+								<p>{product.productInform}</p>
+								<button onClick={()=>{navigate("/product/detail/"+product.productId)}}><i class="fas fa-check"></i>사러가기</button>
+							</div>
+						</div>
+					)}
 					</div>
 				</div>
 			</section>

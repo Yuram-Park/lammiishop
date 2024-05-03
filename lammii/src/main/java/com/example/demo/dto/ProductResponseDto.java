@@ -1,8 +1,11 @@
 package com.example.demo.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.example.demo.entity.Product;
+import com.example.demo.entity.ProductImg;
+import com.example.demo.entity.ProductOption;
 
 import lombok.Data;
 import lombok.Getter;
@@ -23,6 +26,8 @@ public class ProductResponseDto {
 	private Integer productPrice;
 	private Integer productQuantity;
 	private LocalDateTime createdDate;
+	private List<ProductImg> productImg;
+	private List<ProductOption> productOption;
 	
 	public ProductResponseDto(Product product) {
 		this.productId = product.getProductId();
@@ -33,5 +38,8 @@ public class ProductResponseDto {
 		this.productPrice = product.getProductPrice();
 		this.productQuantity = product.getProductQuantity();
 		this.createdDate = product.getCreatedDate();
+		this.productImg = product.getProductImg();
+		this.productOption = product.getProductOption();
 	}
+	
 }

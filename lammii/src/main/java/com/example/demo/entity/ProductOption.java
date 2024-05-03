@@ -22,8 +22,8 @@ public class ProductOption {
 	private Integer productOptionId;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "product_id")
-	private Product productId;
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
+	private Product product;
 	
 	@Column(length = 10)
 	private String productColor;

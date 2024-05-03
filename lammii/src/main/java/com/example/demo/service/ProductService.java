@@ -24,12 +24,12 @@ public class ProductService {
 	private final ProductRepository productRepository;
 	private final ProductImgRepository productImgRepository;
 	
-	public List<ProductResponseDto> getProductList(String category, String detail) {
+	public List<ProductResponseDto> getProductList(String category, String detail){
 		
 		List<Product> productEntity = new ArrayList<Product>();
-				
+		
 		if(category.equals("ALL")) {
-			 productEntity = productRepository.findAll();
+			productEntity = productRepository.findAllWithImg();
 		} else if(!category.equals("ALL") && detail.equals("all")) {
 			productEntity = productRepository.findAllByProductCategory(category);
 		} else {
@@ -41,14 +41,22 @@ public class ProductService {
 		return productList;
 	}
 	
+	// 게시글 1개 불러오기
 	public Map<String, Object> getProductDetail(int productId) {
-		Product product = productRepository.findById(productId).orElseThrow();
-		ProductImg productImg = productImgRepository.findByProduct_ProductId(productId);
+		
+		//Product product = productRepository.findByIdWithDetail(productId);
+		//ProductResponseDto productDto = new ProductResponseDto(product);
+		
+		Map<String, Object> productResponse = new HashMap<>();
+		Product product = productRepository.findByIdWithOption(productId);
 		ProductResponseDto productDto = new ProductResponseDto(product);
-		ProductImgResponseDto productImgDto = new ProductImgResponseDto(productImg);
-		Map<String, Object> map = new HashMap<>();
-		map.put("product", productDto);
-		map.put("productImg", productImgDto);
-		return map;
+		List<ProductImg> productImg = productImgRepository.findAllByProduct_ProductId(productId);
+		List<ProductImgResponseDto> productImgDto = productImg.stream().map(ProductImgResponseDto::new).collect(Collectors.toList());
+		
+		productResponse.put("detail", productDto);
+		productResponse.put("img", productImgDto);
+		
+		return productResponse;
 	}
+
 }

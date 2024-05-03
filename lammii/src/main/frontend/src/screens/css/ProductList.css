@@ -38,9 +38,14 @@
 	margin: 12px;
 }
 
+.serv_list .container .item_list .card .img{
+	text-align: center;
+}
+
 .serv_list .container .item_list .card img{
 	height: 200px;
-	width: 250px;
+	width: 230px;
+	object-fit: contain;
 }
 
 .serv_list .container .item_list .card .text p{

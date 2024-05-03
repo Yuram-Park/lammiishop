@@ -8,12 +8,14 @@
 	margin-top: 50px;
 	margin-bottom: 50px;
 	margin-left: 50px;
+	text-align: center;
 }
 
 .container .representative .img img {
 	border: 1px solid black;
 	width: 500px;
 	height: 500px;
+	object-fit: contain;
 }
 
 .container .representative .detail {
@@ -36,6 +38,7 @@
 	border: 1px sold black;
 	width: 70px;
 	text-align: center;
+	font-size: 15px;
 }
 
 .container .representative .detail .color-check input[type=radio]:checked + label {
@@ -56,6 +59,7 @@
 	border: 1px sold black;
 	width: 70px;
 	text-align: center;
+	font-size: 17px;
 }
 
 .container .representative .detail .size-check input[type=radio]:checked + label {
