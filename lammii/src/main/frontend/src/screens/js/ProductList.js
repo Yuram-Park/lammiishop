@@ -33,7 +33,7 @@ function ProductList() {
 		}
 		const getProductList = async() => {
 			const resp = await axios.get(process.env.REACT_APP_DB_HOST + `/product/list/${category}/${detail}`);
-			setProductList(resp.data);
+			setProductList(resp.data);console.log(resp.data)
 		}
 		getProductList();
 		
@@ -62,8 +62,8 @@ function ProductList() {
 								<img src={`${process.env.PUBLIC_URL}/img/${product.productImg[0].productImgUrl}`} alt='' />
 							</div>
 							<div class="text">
-								<h2>{product.productName}</h2>
-								<p>{product.productInform}</p>
+								<h4>{product.productName}</h4>
+								<p>{product.productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</p>
 								<button onClick={()=>{navigate("/product/detail/"+product.productId)}}><i class="fas fa-check"></i>사러가기</button>
 							</div>
 						</div>

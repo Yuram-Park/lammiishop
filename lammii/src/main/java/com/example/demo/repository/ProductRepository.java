@@ -12,13 +12,13 @@ import com.example.demo.entity.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer>{
 
-	@Query(value = "select a.* from product a LEFT OUTER join product_img b ON a.product_id = b.product_id", nativeQuery = true)
+	@Query(value = "select a.* from product a LEFT OUTER join product_img b ON a.product_id = b.product_id WHERE b.product_img_url LIKE '%main1%'", nativeQuery = true)
 	List<Product> findAllWithImg();
 	
-	@Query(value = "SELECT a.* FROM product a LEFT OUTER JOIN product_img b ON a.product_id = b.product_id WHERE a.product_category = :productCategory", nativeQuery = true)
+	@Query(value = "SELECT a.* FROM product a LEFT OUTER JOIN product_img b ON a.product_id = b.product_id WHERE a.product_category = :productCategory AND b.product_img_url LIKE '%main1%'", nativeQuery = true)
 	List<Product> findAllByProductCategory(@Param("productCategory") String productCategory);
 	
-	@Query(value = "SELECT a.* FROM product a LEFT OUTER JOIN product_img b ON a.product_id = b.product_id WHERE a.product_category = :productCategory AND a.product_category_detail = :productCategoryDetail", nativeQuery = true)
+	@Query(value = "SELECT a.* FROM product a LEFT OUTER JOIN product_img b ON a.product_id = b.product_id WHERE a.product_category = :productCategory AND a.product_category_detail = :productCategoryDetail AND b.product_img_url LIKE '%main1%'", nativeQuery = true)
 	List<Product> findAllByProductCategoryAndProductCategoryDetail(@Param("productCategory") String productCategory, @Param("productCategoryDetail") String productCategoryDetail);
 	
 	// detail, img, option join으로 가져오기

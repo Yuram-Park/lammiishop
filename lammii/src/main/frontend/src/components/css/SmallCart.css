@@ -1,0 +1,35 @@
+.smallcart {
+}
+
+.smallcart .smallcart_item {
+	width: 100%;
+	height: 70px;
+	display: flex;
+	border: 1px solid black;
+}
+
+.smallcart .smallcart_item p {
+	margin: auto;
+	font-size: 15px;
+}
+
+.smallcart .smallcart_item .quantity {
+	display: flex;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-right: 20px;
+}
+
+.smallcart .smallcart_item .quantity button {
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.smallcart .smallcart_item .quantity input {
+	width: 30px;
+	height: 30px;
+	border: 1px solid black;
+}

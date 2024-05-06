@@ -44,9 +44,6 @@ public class ProductService {
 	// 게시글 1개 불러오기
 	public Map<String, Object> getProductDetail(int productId) {
 		
-		//Product product = productRepository.findByIdWithDetail(productId);
-		//ProductResponseDto productDto = new ProductResponseDto(product);
-		
 		Map<String, Object> productResponse = new HashMap<>();
 		Product product = productRepository.findByIdWithOption(productId);
 		ProductResponseDto productDto = new ProductResponseDto(product);
