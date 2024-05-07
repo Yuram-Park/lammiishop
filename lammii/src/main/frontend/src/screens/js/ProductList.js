@@ -63,7 +63,7 @@ function ProductList() {
 							</div>
 							<div class="text">
 								<h4>{product.productName}</h4>
-								<p>{product.productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</p>
+								<p>{product.productPrice} 원</p>
 								<button onClick={()=>{navigate("/product/detail/"+product.productId)}}><i class="fas fa-check"></i>사러가기</button>
 							</div>
 						</div>

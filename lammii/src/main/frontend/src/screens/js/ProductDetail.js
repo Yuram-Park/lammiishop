@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
 import SmallCart from '../../components/js/SmallCart';
+import Dropdown from '../../components/js/Dropdown';
 
 function ProductDetail() {
 	
@@ -24,17 +25,25 @@ function ProductDetail() {
 		}
 		getProductDetail();
 	}, []);
-	console.log(productDetail)
-	console.log(productOption)
 	
-	let colors = [];
-	let sizes = [];
+	/*Dropdown*/
+	const [selectedOption, setSelectedOption] = useState([]);
 	
-	if(productDetail){
-		for(let item of productOption){
-			colors.push(item.productColor);
-			sizes.push(item.productSize);
-		}
+	const sendOption = (option) => {
+		const updatedArr = [...selectedOption, option];
+		setSelectedOption(updatedArr);
+	}
+
+	const [isDropdownView, setDropdownView] = useState(false)
+
+	const handleClickContainer = () => {
+		setDropdownView(!isDropdownView)
+	}
+
+	const handleBlurContainer = () => {
+		setTimeout(() => {
+			setDropdownView(false)
+		}, 200);
 	}
 	
 	return (
@@ -55,19 +64,14 @@ function ProductDetail() {
 						<h1>{productDetail.productName}</h1>
 						<h5>{productDetail.productCategoryDetail}</h5>
 						<h6>{productDetail.productPrice}원</h6>
-						<div class="color-check">
-							COLOUR<br/>
-							{colors.filter((e, idx) => colors.indexOf(e) == idx).map((color) => 
-								<><input type="radio" class="color" id="black"/><label for="black">{color}</label></>
-							)}
+						<div class="dropdown">
+							<label className="dropbtn" onClick={handleClickContainer}>
+								<p>Select option</p>
+								<p>{isDropdownView ? '▲' : '▼'}</p>
+							</label>
+							{isDropdownView && <Dropdown productOption={productOption} sendOption={sendOption}/>}
 						</div>
-						<div class="size-check">
-							SIZE<br/>
-							{sizes.filter((e, idx) => sizes.indexOf(e) == idx).map((size) => 
-								<><input type="radio" class="size" id="xs"/><label for="xs">{size}</label></>
-							)}
-						</div>
-						<SmallCart productName={productDetail.productName}/>
+						<SmallCart productOption={productOption} selectedOption={selectedOption}/>
 						<button><i class="fas fa-check"></i>ADD CART</button>
 					</div>
 				</div>
