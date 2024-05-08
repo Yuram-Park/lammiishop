@@ -1,12 +1,15 @@
 import '../css/SmallCart.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const SmallCart = (props) => {
 	
-	const [quantity, setQuantity] = useState(1);
-	const [price, setPrice] = useState(props.productPrice);
+	useEffect(()=>{
+		setPrice(props.productPrice);
+	},[props.productPrice]);
 	
-	const productName = props.productOption.productName;
+	const productName = props.productName;
+	const [quantity, setQuantity] = useState(1);
+	const [price, setPrice] = useState(0);
 	
 	const onPlus = () => {
 		setQuantity(quantity + 1);
@@ -18,22 +21,22 @@ const SmallCart = (props) => {
 		setPrice(price - props.productPrice);
 	}
 	
+	useEffect(()=>{
+		props.setPrice({id: props.option.productOptionId, quantity: quantity, price: price})
+	}, [price]);
+	
 	return(
-		<div>
-			<div className="smallcart">
-				<div className="smallcart_item">
-					<p>{productName}</p>
-					<p>black</p>
-					<p>s</p>
-					<div className='quantity'>
-						<button onClick={onPlus}>+</button>
-						<input type='text' value={quantity}/>
-						<button onClick={onMinus}>-</button>
-					</div>
-					<p>{price} 원</p>
-					<p>X</p>
-				</div>
+		<div className="smallcart_item">
+			<p>{productName}</p>
+			<p>{props.option.productColor}</p>
+			<p>{props.option.productSize}</p>
+			<div className='quantity'>
+				<button onClick={onPlus}>+</button>
+				<input type='text' value={quantity}/>
+				<button onClick={onMinus}>-</button>
 			</div>
+			<p>{price} 원</p>
+			<p className="delete" onClick={()=>props.deleteId(props.option.productOptionId)}>X</p>
 		</div>
 	);
 };

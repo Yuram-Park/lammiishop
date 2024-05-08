@@ -50,6 +50,11 @@
 	font-size : 15px;
 }
 
+.container .representative .detail .totalPrice {
+	margin: 12px;
+	float: right;
+}
+
 .container .representative .detail button {
 	width: 100%;
 	background: black;

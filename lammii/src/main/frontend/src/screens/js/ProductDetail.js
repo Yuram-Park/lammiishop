@@ -26,14 +26,16 @@ function ProductDetail() {
 		getProductDetail();
 	}, []);
 	
-	/*Dropdown*/
+	/* Dropdown select option */
 	const [selectedOption, setSelectedOption] = useState([]);
 	
-	const sendOption = (option) => {
-		const updatedArr = [...selectedOption, option];
-		setSelectedOption(updatedArr);
+	const sendOption = (id) => {
+		productOption.map((one) => {
+		if(one.productOptionId === id){
+			setSelectedOption([...selectedOption, one]);
+		}})
 	}
-
+	
 	const [isDropdownView, setDropdownView] = useState(false)
 
 	const handleClickContainer = () => {
@@ -46,6 +48,41 @@ function ProductDetail() {
 		}, 200);
 	}
 	
+	/* Cart Price */
+	
+	const [totalPrice, setTotalPrice] = useState(0);
+	const [eachPrice, setEachPrice] = useState([{id: 0, quantity: 0, price: 0}]);
+	const [totalCount, setTotalCount] = useState(0);
+	
+	const deleteId = (id) => {
+		const newArr = selectedOption.filter((one) => one.productOptionId !== id);
+		setSelectedOption(newArr);
+		
+		const newPriceArr = eachPrice.filter((one) => one.id !== id);
+		setEachPrice(newPriceArr);
+	}
+	
+	const setPrice = (newPrice) => {
+		const arr = eachPrice.filter((one) => one.id === newPrice.id);
+		if(arr.length === 0){
+			setEachPrice([...eachPrice, newPrice]);
+		} else {
+			const newArr = eachPrice.map((one) => one.id === newPrice.id ? {...one, quantity: newPrice.quantity, price: newPrice.price} : one)
+			setEachPrice(newArr);
+		}
+	}
+	
+	useEffect(()=> {
+		let sum = 0;
+		eachPrice.map((one) => sum = sum + one.price);
+		setTotalPrice(sum);
+		
+		let count = 0;
+		eachPrice.map((one) => count = count + one.quantity);
+		setTotalCount(count);
+	},[eachPrice]);
+	
+	console.log(selectedOption)
 	return (
 		<div>
 			<ProductHeader ></ProductHeader>
@@ -71,7 +108,14 @@ function ProductDetail() {
 							</label>
 							{isDropdownView && <Dropdown productOption={productOption} sendOption={sendOption}/>}
 						</div>
-						<SmallCart productOption={productOption} selectedOption={selectedOption}/>
+						<div className="cart">
+						{selectedOption.map((option) =>
+							<SmallCart productName={productDetail.productName} productPrice={productDetail.productPrice} option={option} deleteId={deleteId} setPrice={setPrice}/>
+						)}
+						</div>
+						<div className="totalPrice">
+							<h5>Total : {totalPrice} 원 ({totalCount} 개)</h5>
+						</div>
 						<button><i class="fas fa-check"></i>ADD CART</button>
 					</div>
 				</div>
