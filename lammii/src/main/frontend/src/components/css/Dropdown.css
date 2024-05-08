@@ -1,0 +1,32 @@
+ul {
+	list-style: none;
+	padding-left:0px;
+}
+
+.dropdown-content{
+  width : 240px;
+  border: 1px solid black;
+  border-radius: 8px;
+  height : 100px;
+  overflow : scroll;
+}
+.dropdown-content::-webkit-scrollbar{
+  width : 5px;
+  height : 10px;
+}
+.dropdown-content::-webkit-scrollbar-thumb{
+  border-radius : 2px;
+  background-color :rgb(194, 194, 194)
+}
+
+.dropdown-content li{
+  display : block;
+  text-decoration : none;
+  color : rgb(37, 37, 37);
+  font-size: 12px;
+  padding : 12px 20px;
+}
+
+.dropdown-content li:hover{
+  background-color: rgb(226, 226, 226);
+}

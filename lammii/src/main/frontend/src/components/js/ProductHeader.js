@@ -1,7 +1,7 @@
 import '../css/ProductHeader.css';
 import { useEffect, useState } from 'react';
 
-function ProductHeader() {
+const ProductHeader = () => {
 
 	return (
 		<div>

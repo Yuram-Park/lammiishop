@@ -4,7 +4,7 @@
 
 .container .representative .img {
 	width: 500px;
-	height: 500px;
+	height: 600px;
 	margin-top: 50px;
 	margin-bottom: 50px;
 	margin-left: 50px;
@@ -14,7 +14,7 @@
 .container .representative .img img {
 	border: 1px solid black;
 	width: 500px;
-	height: 500px;
+	height: 600px;
 	object-fit: contain;
 }
 
@@ -25,46 +25,34 @@
 	margin: 50px;
 }
 
-.container .representative .detail .color-check {
+.container .representative .detail .dropdown{
 	margin: 40px 0;
+	position : relative;
+	display : inline-block;
 }
 
-.container .representative .detail .color-check .color{
-	opacity:0;
+.container .representative .detail .dropdown .dropbtn {
+	display: flex;
+	border: 1px solid rgb(94, 94, 94);
+	border-radius: 4px;
+	font-weight: 400;
+	padding: 8px;
+	width: 240px;
+	text-align: left;
+	cursor: pointer;
+	z-index: 1;
+	position: relative;
+	height: 40px;
+	justify-content: space-between;
 }
 
-.container .representative .detail .color-check label{
-	padding: 5px 10px;
-	border: 1px sold black;
-	width: 70px;
-	text-align: center;
-	font-size: 15px;
+.container .representative .detail .dropdown .dropbtn p {
+	font-size : 15px;
 }
 
-.container .representative .detail .color-check input[type=radio]:checked + label {
-	background-color: black;
-	color: white;
-}
-
-.container .representative .detail .size-check {
-	margin: 40px 0;
-}
-
-.container .representative .detail .size-check .size{
-	opacity:0;
-}
-
-.container .representative .detail .size-check label{
-	padding: 5px 10px;
-	border: 1px sold black;
-	width: 70px;
-	text-align: center;
-	font-size: 17px;
-}
-
-.container .representative .detail .size-check input[type=radio]:checked + label {
-	background-color: black;
-	color: white;
+.container .representative .detail .totalPrice {
+	margin: 12px;
+	float: right;
 }
 
 .container .representative .detail button {
@@ -85,6 +73,11 @@
 }
 
 .container .detailed {
-	border: 1px solid red;
-	height: 200px;	
+	text-align: center;
+}
+
+.container .detailed img{
+	width: 75%;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
