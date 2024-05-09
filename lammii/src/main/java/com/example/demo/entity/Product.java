@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @SequenceGenerator(
 		name = "PRODUCT_ID_SEQ_GENERATOR"
-	    , sequenceName = "POST_ID_SEQ"
+	    , sequenceName = "PRODUCT_ID_SEQ"
 	    , initialValue = 1
 	    , allocationSize = 1
 	)

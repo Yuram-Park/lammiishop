@@ -1,0 +1,32 @@
+table {
+	table-layout: fixed;
+}
+
+td {
+	height: 120px;
+}
+
+.serv_list .container .cart_list th {
+	text-align: center;
+}
+
+.serv_list .container .cart_list .total_price {
+	text-align: right;
+}
+
+.serv_list .container .order_btn {
+	text-align: center;
+}
+
+.serv_list .container .order_btn button {
+	width: 150px;
+	height: 50px;
+	margin: 10px;
+	border: 1px solid black;
+	border-radius: 5px;
+	background-color: white;
+}
+
+.serv_list .container .order_btn .go_shopping {
+	float: right;
+}
