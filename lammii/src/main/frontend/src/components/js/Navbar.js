@@ -13,6 +13,7 @@ function Navbar() {
 							<li class="nav-item"><a class="nav-link" href="/post/list">Communication</a></li>
 							<li class="nav-item"><a class="nav-link" href="/join">Join</a></li>
 							<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+							<li class="nav-item"><a class="nav-link" href="/cart">Cart</a></li>
 						</ul>
 					</div>
 				</div>
